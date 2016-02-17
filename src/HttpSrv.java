@@ -53,21 +53,28 @@ class HttpdConnection implements Runnable {
 	  try {
       
     	BufferedReader in = new BufferedReader(
-        new InputStreamReader(client.getInputStream(), "8859_1" ) );
-    	OutputStream out = client.getOutputStream();
-    	PrintWriter pout = new PrintWriter(new OutputStreamWriter(out, "8859_1"), true );
+    			new InputStreamReader(client.getInputStream(), "8859_1" ) );
     	String request;
+    	Transmitter trans = null;
+    	
     	while ((request = in.readLine()) != null) {
     		System.out.println( "The message received: "+request);
-    		pout.println( "I am server, I received: " +request);
-      
+    		
     		if(request!=null){ // sometimes
+    			//process the incoming message
     			rcv.processMsg( request, Db );
+    			
+    			//send the message to another server
+    			//comment these rows if the code is used for a last server
+    			trans= new Transmitter();
+    			trans.sendString(request);
+    			
     		}
     		else{
     			System.out.println( "http: null received???? " );
     		}
     	}
+    	if(trans!=null)trans.close();
     	client.close();
     	System.out.println( "The session is closed");
 	  } catch ( IOException e ) {

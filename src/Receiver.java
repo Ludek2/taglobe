@@ -28,12 +28,6 @@ public class Receiver {
 			//safe time to sql
 			Db.logMessageTimes(msg.getMessageId(), thisServerId,
 					msg.getTimeReceived(), java.lang.System.currentTimeMillis());
-			
-			//send the message to another server
-			//comment this if last server
-			//Transmitter trans= new Transmitter();
-			//trans.sendString(str_received);
-			//trans.close();
 		}
 		
 		else{
