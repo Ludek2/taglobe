@@ -25,7 +25,7 @@ public class MsgSender {
 						server.getOutputStream())), true);
 		pout.println("messageId="+messageId+"&information=testiiiiing");
 		
-		for(int i=2271;i<5000;i++){
+		for(int i=4011;i<4020;i++){
 			pout.println("messageId="+i+"&information=testiiiiing");
 			System.out.println(i);
 			/*

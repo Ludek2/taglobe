@@ -26,8 +26,8 @@ public class HttpSrv {
 		ConnectionInfo.serverPointedToIP=Db.getServerPointedToIP();
 		System.out.println("Server pointed to IP: "+ConnectionInfo.serverPointedToIP);
 		
-		//Executor executor = Executors.newCachedThreadPool();
-		Executor executor = Executors.newFixedThreadPool(3);
+		Executor executor = Executors.newCachedThreadPool();
+		//Executor executor = Executors.newFixedThreadPool(3);
 		ServerSocket ss = new ServerSocket( ConnectionInfo.appPort );
 		while ( true ){
 			executor.execute( new HttpdConnection( ss.accept(), new Receiver(), Db ) );
@@ -45,7 +45,9 @@ class HttpdConnection implements Runnable {
     this.client = client;
     this.rcv= rcv;
     this.Db=Db;
-    System.out.println( "Incoming connection accepted" );
+    
+    // the program is sometimes stacked in this point !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    System.out.println( "Incoming connection accepted" );  
   }
   
   public void run() {
